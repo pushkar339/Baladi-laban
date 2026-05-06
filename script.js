@@ -86,12 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
             phone: '+91 77366 60688',
             hours: 'Open 2:00 PM - 1:00 AM',
             address: 'Shop no. 78, Municipal Market, Connaught Cir, Connaught Lane, Connaught Place, New Delhi, Delhi 110001'
-        },
-        {
-            city: 'Kochi',
-            email: 'feellaban@gmail.com',
-            phone: '+91 77366 60688',
-            hours: 'Open 2:00 PM - 1:00 AM'
         }
     ];
     let currentLocation = 0;
