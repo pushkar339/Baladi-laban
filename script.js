@@ -4,7 +4,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // ---- Full-Screen Menu Overlay ----
-    const menuLink = document.getElementById('menu-link');
+    const menuLinkDesktop = document.getElementById('menu-link-desktop');
+    const mobileToggle = document.getElementById('mobile-toggle');
     const menuOverlay = document.getElementById('menu-overlay');
     const menuOverlayClose = document.getElementById('menu-overlay-close');
     const menuNavLinks = document.querySelectorAll('[data-menu-close]');
@@ -23,9 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    if (menuLink) {
-        menuLink.addEventListener('click', (e) => {
+    if (menuLinkDesktop) {
+        menuLinkDesktop.addEventListener('click', (e) => {
             e.preventDefault();
+            openMenu();
+        });
+    }
+
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', () => {
             openMenu();
         });
     }

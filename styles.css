@@ -152,6 +152,24 @@ ul, ol {
     justify-content: center;
 }
 
+.mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+    z-index: 110;
+}
+
+.mobile-toggle .bar {
+    width: 100%;
+    height: 2.5px;
+    background-color: var(--blue-primary);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
 /* ---------- Full-Screen Menu Overlay ---------- */
 .menu-overlay {
     position: fixed;
@@ -1212,6 +1230,24 @@ ul, ol {
         --side-padding: 32px;
     }
     
+    .hero-container {
+        padding: 40px var(--side-padding) 80px;
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 60px;
+    }
+
+    .hero-text-side {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
     .product-tab {
         font-size: 2.5rem;
     }
@@ -1221,6 +1257,17 @@ ul, ol {
     .franchise-content {
         grid-template-columns: 1fr;
         gap: 48px;
+        text-align: center;
+    }
+
+    .visit-left, .about-left, .franchise-right {
+        align-items: center;
+        max-width: 100%;
+    }
+
+    .visit-description, .about-description, .franchise-description {
+        margin-left: auto;
+        margin-right: auto;
     }
     
     .visit-right,
@@ -1244,14 +1291,16 @@ ul, ol {
     .visit-image-arch,
     .about-image-arch {
         width: 100%;
-        max-width: 480px;
+        max-width: 400px;
         height: 450px;
+        border-radius: 200px 200px 0 0;
     }
     
     .franchise-image-arch {
         width: 100%;
-        max-width: 520px;
+        max-width: 400px;
         height: 450px;
+        border-radius: 0 0 200px 200px;
     }
     
     .explore-content {
@@ -1262,11 +1311,28 @@ ul, ol {
     .footer-top {
         grid-template-columns: 1fr;
         gap: 32px;
+        text-align: center;
+    }
+
+    .footer-brand, .footer-tagline {
+        justify-content: center;
     }
     
     .footer-bottom {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 40px;
+    }
+
+    .footer-enquiry {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-links-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
     }
 }
 
@@ -1274,20 +1340,57 @@ ul, ol {
 @media (max-width: 768px) {
     :root {
         --side-padding: 20px;
-        --nav-height: 60px;
+        --nav-height: 70px;
     }
     
     .navbar {
         padding: 0 20px;
     }
     
+    .nav-left {
+        display: none;
+    }
+
     .nav-right .nav-link {
         display: none;
     }
+
+    .nav-btn-contact {
+        display: none; /* Hide in navbar on mobile, show in menu overlay */
+    }
+
+    .mobile-toggle {
+        display: flex;
+    }
     
-    .logo-svg {
-        width: 80px;
-        height: 34px;
+    .nav-logo {
+        font-size: 1.25rem;
+    }
+    
+    .hero-title {
+        font-size: clamp(2.5rem, 10vw, 3.5rem);
+        margin-bottom: 16px;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 32px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-actions .nav-btn-contact,
+    .hero-actions .outline-btn {
+        width: 100%;
+        padding: 16px;
+    }
+
+    .hero-image-blob {
+        width: 100%;
+        height: 100%;
     }
     
     .product-tab {
@@ -1295,16 +1398,17 @@ ul, ol {
     }
     
     .products-tabs {
-        gap: 20px;
+        gap: 15px;
+        margin-bottom: 32px;
     }
     
     .product-card {
-        flex: 0 0 calc(75% - 8px);
-        min-width: 240px;
+        flex: 0 0 calc(85% - 10px);
+        min-width: 260px;
     }
     
     .section-heading {
-        font-size: 2rem;
+        font-size: 2.25rem;
     }
     
     .instagram-grid {
@@ -1317,11 +1421,11 @@ ul, ol {
     }
     
     .marquee-word {
-        font-size: 3rem;
+        font-size: 3.5rem;
     }
     
     .marquee-dot {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
     
     .footer-top {
@@ -1337,42 +1441,41 @@ ul, ol {
     }
     
     .franchise-right .section-heading {
-        font-size: 2.25rem;
+        font-size: 2rem;
     }
     
     .visit-image-arch,
-    .about-image-arch {
-        width: 100%;
-        height: 350px;
-    }
-    
+    .about-image-arch,
     .franchise-image-arch {
-        width: 100%;
-        height: 350px;
+        height: 300px;
+    }
+
+    .menu-overlay-grid {
+        grid-template-columns: 1fr;
+        padding-bottom: 40px;
+    }
+
+    .menu-overlay-nav {
+        flex-wrap: wrap;
+        gap: 20px;
     }
 }
 
 /* Small Mobile */
 @media (max-width: 480px) {
     .product-tab {
-        font-size: 1.25rem;
+        font-size: 1.35rem;
     }
     
     .products-tabs {
-        gap: 12px;
+        gap: 10px;
     }
     
     .product-card {
-        flex: 0 0 85%;
-        min-width: 200px;
+        flex: 0 0 90%;
     }
-    
-    .hero-logo-arabic {
-        width: 320px;
-    }
-    
-    .hero-logo-overlay {
-        bottom: -20px;
-        right: -30px;
+
+    .hero-title {
+        font-size: 2.75rem;
     }
 }
