@@ -62,25 +62,112 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ---- Products Carousel ----
+    // ---- Products Carousel (Premium Implementation) ----
     const carousel = document.getElementById('products-carousel');
-    const carouselArrow = document.getElementById('carousel-arrow-right');
+    const arrowRight = document.getElementById('carousel-arrow-right');
+    const arrowLeft = document.getElementById('carousel-arrow-left');
+    const progressBar = document.getElementById('products-progress-bar');
 
-    if (carouselArrow && carousel) {
-        carouselArrow.addEventListener('click', () => {
-            const cardWidth = carousel.querySelector('.product-card')?.offsetWidth || 300;
-            carousel.scrollBy({
-                left: cardWidth + 16,
-                behavior: 'smooth'
-            });
+    if (carousel) {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        // Update Progress Bar & Arrow States
+        const updateCarouselState = () => {
+            if (!carousel) return;
             
-            // Loop back to start if at end
-            if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 50) {
-                setTimeout(() => {
-                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
-                }, 400);
+            // Progress Bar
+            const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+            const progress = (carousel.scrollLeft / maxScroll) * 100;
+            if (progressBar) progressBar.style.width = `${progress}%`;
+
+            // Arrow States
+            if (arrowLeft) {
+                arrowLeft.disabled = carousel.scrollLeft <= 5;
+                arrowLeft.style.opacity = arrowLeft.disabled ? '0.3' : '1';
+                arrowLeft.style.pointerEvents = arrowLeft.disabled ? 'none' : 'auto';
             }
+            if (arrowRight) {
+                arrowRight.disabled = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 5;
+                arrowRight.style.opacity = arrowRight.disabled ? '0.3' : '1';
+                arrowRight.style.pointerEvents = arrowRight.disabled ? 'none' : 'auto';
+            }
+        };
+
+        // Scroll Events
+        carousel.addEventListener('scroll', updateCarouselState);
+        window.addEventListener('resize', updateCarouselState);
+        
+        // Initial state
+        setTimeout(updateCarouselState, 100);
+
+        // Click to Scroll
+        const scrollAmount = 400;
+        if (arrowRight) {
+            arrowRight.addEventListener('click', () => {
+                carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            });
+        }
+        if (arrowLeft) {
+            arrowLeft.addEventListener('click', () => {
+                carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            });
+        }
+
+        // Drag to Scroll
+        carousel.addEventListener('mousedown', (e) => {
+            isDown = true;
+            carousel.classList.add('active');
+            startX = e.pageX - carousel.offsetLeft;
+            scrollLeft = carousel.scrollLeft;
         });
+
+        carousel.addEventListener('mouseleave', () => {
+            isDown = false;
+            carousel.classList.remove('active');
+        });
+
+        carousel.addEventListener('mouseup', () => {
+            isDown = false;
+            carousel.classList.remove('active');
+        });
+
+        carousel.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - carousel.offsetLeft;
+            const walk = (x - startX) * 2; // Scroll speed multiplier
+            carousel.scrollLeft = scrollLeft - walk;
+        });
+
+        // Touch support
+        carousel.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].pageX - carousel.offsetLeft;
+            scrollLeft = carousel.scrollLeft;
+        }, { passive: true });
+
+        // Dynamic Skew Effect on Scroll
+        let lastPos = carousel.scrollLeft;
+        let skewVelocity = 0;
+        
+        const skewEffect = () => {
+            const newPos = carousel.scrollLeft;
+            const diff = newPos - lastPos;
+            skewVelocity = diff * 0.15; // Intensity
+            lastPos = newPos;
+
+            const cards = carousel.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                // Apply skew and a slight scale based on velocity
+                card.style.transform = `rotate(${-1 + skewVelocity * 0.1}deg) skewX(${skewVelocity * 0.5}deg)`;
+            });
+
+            requestAnimationFrame(skewEffect);
+        };
+        
+        // Start the effect loop
+        requestAnimationFrame(skewEffect);
     }
 
     // ---- Explore Location Arrows ----
