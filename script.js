@@ -168,41 +168,73 @@ document.addEventListener('DOMContentLoaded', () => {
         lastScrollY = currentScrollY;
     });
 
-    // ---- Intersection Observer for Animations ----
+    // ---- Intersection Observer for Premium Animations ----
     const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.15
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     };
 
-    const animateOnScroll = new IntersectionObserver((entries) => {
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-                animateOnScroll.unobserve(entry.target);
+                entry.target.classList.add('is-revealed');
+                revealObserver.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Add animation targets
-    const animatables = document.querySelectorAll(
-        '.section-heading, .visit-description, .about-description, .franchise-description, .outline-btn, .visit-image-arch, .about-image-arch, .franchise-image-arch, .instagram-header, .instagram-item'
-    );
-
-    animatables.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
-        animateOnScroll.observe(el);
+    const revealElements = document.querySelectorAll('.hero-title, .hero-subtitle, .hero-actions, .hero-floating-image, .hero-image-blob, .product-card, .section-heading, .visit-content, .about-content, .franchise-content');
+    
+    revealElements.forEach((el, index) => {
+        el.classList.add('reveal-init');
+        revealObserver.observe(el);
     });
 
-    // CSS class for animation
+    // CSS for Premium Transitions
     const style = document.createElement('style');
     style.textContent = `
-        .animate-in {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
+        .reveal-init {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.2s cubic-bezier(0.2, 1, 0.3, 1);
         }
+        
+        .reveal-init.is-revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-floating-image.reveal-init {
+            transform: translateY(40px) scale(0.95);
+            transition: all 1.4s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .hero-floating-image.is-revealed {
+            transform: translateY(0) scale(1);
+        }
+
+        .hero-image-blob.reveal-init {
+            opacity: 0;
+            transform: scale(0.8) rotate(-10deg);
+            transition: all 1.6s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .hero-image-blob.is-revealed {
+            opacity: 1;
+            transform: scale(1) rotate(-5deg);
+        }
+
+        .product-card {
+            transition-delay: 0.1s;
+        }
+
+        .product-card:nth-child(2) { transition-delay: 0.2s; }
+        .product-card:nth-child(3) { transition-delay: 0.3s; }
+        .product-card:nth-child(4) { transition-delay: 0.4s; }
+
+        .hero-title { transition-delay: 0.1s; }
+        .hero-subtitle { transition-delay: 0.2s; }
+        .hero-actions { transition-delay: 0.3s; }
     `;
     document.head.appendChild(style);
 });

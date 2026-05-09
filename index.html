@@ -13,15 +13,16 @@
 <body>
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
-        <a href="#" class="nav-link menu-link" id="menu-link">Menu</a>
-        <a href="#" class="nav-logo" id="nav-logo">
-            <svg class="logo-svg" viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
-                <text x="80" y="38" text-anchor="middle" font-family="'Playfair Display', serif" font-size="24" font-weight="700" fill="#015de4" font-style="italic">Baladi Laban</text>
-            </svg>
-        </a>
+        <div class="nav-left">
+            <a href="#" class="nav-link" id="menu-link">Our Menu</a>
+            <a href="#about" class="nav-link">Our Story</a>
+        </div>
+        <a href="#" class="nav-logo" id="nav-logo">Baladi Laban</a>
         <div class="nav-right">
-            <a href="#locations" class="nav-link" id="locations-link">Locations</a>
-            <a href="#contact" class="nav-btn-contact" id="contact-btn">Contact</a>
+            <a href="#locations" class="nav-link">Locations</a>
+            <a href="#contact" class="nav-btn-contact">
+                Contact <span class="btn-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </a>
         </div>
     </nav>
 
@@ -179,20 +180,37 @@
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
-        <div class="hero-content">
-            <div class="hero-image-wrapper">
-                <img src="./images/hero-dessert.png" alt="Baladi Laban signature laban dessert" class="hero-image" id="hero-image">
+        <div class="hero-container">
+            <div class="hero-text-side">
+                <h1 class="hero-title">Experience <br>The <span class="text-italic">Original</span> Taste.</h1>
+                <p class="hero-subtitle">Authentic Egyptian desserts crafted with premium Baladi milk. Tradition in every bite, sweetness in every feel.</p>
+                <div class="hero-actions">
+                    <a href="#products" class="nav-btn-contact">
+                        View Menu <span class="btn-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                    </a>
+                    <a href="#locations" class="outline-btn">Find a Store</a>
+                </div>
             </div>
-            <div class="hero-logo-overlay">
-                <svg class="hero-logo-arabic" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
-                    <text x="600" y="240" text-anchor="middle" font-family="'Playfair Display', serif" font-size="160" font-weight="700" fill="#015de4" font-style="italic">Baladi Laban</text>
-                </svg>
+            <div class="hero-image-side">
+                <div class="hero-image-blob"></div>
+                <img src="./images/hero-dessert.png" alt="Baladi Laban signature laban dessert" class="hero-floating-image">
             </div>
+        </div>
+        <!-- Wavy Divider -->
+        <div class="wavy-divider">
+            <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z" fill="#E1EEFF"></path>
+            </svg>
         </div>
     </section>
 
     <!-- Products / Menu Section -->
     <section class="products-section" id="products">
+        <div class="products-container">
+            <div class="section-header-centered">
+                <h2 class="section-heading">Our Sweetest Creations</h2>
+                <p class="section-subheading">Indulge in our most loved dairy-based delights.</p>
+            </div>
         <div class="products-tabs" id="products-tabs">
             <button class="product-tab" data-tab="shakes" id="tab-shakes">Shakes</button>
             <button class="product-tab active" data-tab="new-arrivals" id="tab-new-arrivals">New Arrivals</button>
@@ -250,6 +268,13 @@
             </button>
         </div>
     </section>
+
+    <!-- Transition Divider -->
+    <div class="wavy-divider invert">
+        <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z" fill="#0056D2"></path>
+        </svg>
+    </div>
 
     <!-- Marquee Ticker -->
     <section class="marquee-section" id="marquee">
@@ -427,6 +452,13 @@
             </div>
         </div>
     </section>
+
+    <!-- Footer Wavy Divider -->
+    <div class="wavy-divider invert">
+        <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z" fill="#0056D2"></path>
+        </svg>
+    </div>
 
     <!-- Footer -->
     <footer class="footer" id="footer">
